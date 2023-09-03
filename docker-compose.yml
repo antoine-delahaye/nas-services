@@ -9,7 +9,7 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
     ports:
       - target: 80
         published: 80
