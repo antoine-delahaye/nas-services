@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  caddy:
+    image: caddy:alpine
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    restart: always
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+      - target: 443
+        published: 443
+        protocol: tcp
+      - target: 443
+        published: 443
+        protocol: udp
+
+  portainer:
+    image: portainer/portainer-ce:alpine
+    restart: always
+    environment:
+      VIRTUAL_HOST: portainer.${DOMAIN:-localhost}
+      VIRTUAL_PORT: 9000
+    ports:
+      - target: 8000
+        published: 8000
+        protocol: tcp
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  caddy_data:
+  caddy_config:
+  portainer_data:

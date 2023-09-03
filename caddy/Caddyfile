@@ -1,0 +1,23 @@
+{
+	{$GLOBAL_OPTIONS}
+}
+
+{$DOMAIN}, portainer.{$DOMAIN}, caddy:80
+
+log
+encode zstd gzip
+
+header {
+	Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+	Content-Security-Policy "
+        default-src https:;
+        style-src 'self';
+        image-src data: 'self'
+    "
+	X-Frame-Options "SAMEORIGIN"
+	X-Content-Type-Options nosniff
+	X-XSS-Protection "1; mode=block"
+	-Server
+}
+
+reverse_proxy portainer.{$DOMAIN} http://portainer:9000

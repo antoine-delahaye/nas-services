@@ -1,0 +1,5 @@
+version: "3.8"
+
+services:
+  caddy:
+    command: ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--watch"]
