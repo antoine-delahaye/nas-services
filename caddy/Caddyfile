@@ -1,19 +1,34 @@
+(headers) {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy "
+        default-src https:;
+        style-src 'self';
+        image-src data: 'self'
+    "
+    X-Frame-Options DENY
+    X-Content-Type-Options nosniff
+    X-XSS-Protection "1; mode=block"
+    -Server
+}
+
 portainer.{$DOMAIN} {
     header {
-    	Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-    	Content-Security-Policy "
-            default-src https:;
-            style-src 'self';
-            image-src data: 'self'
-        "
-    	X-Frame-Options DENY
-    	X-Content-Type-Options nosniff
-    	X-XSS-Protection "1; mode=block"
-    	-Server
+    	import headers
     }
 
     log
     encode zstd gzip
 
     reverse_proxy portainer:9000
+}
+
+qbittorrent.{$DOMAIN} {
+    header {
+    	import headers
+    }
+
+    log
+    encode zstd gzip
+
+    reverse_proxy qbittorrent:8080
 }
