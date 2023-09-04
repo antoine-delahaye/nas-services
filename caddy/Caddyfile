@@ -32,3 +32,14 @@ qbittorrent.{$DOMAIN} {
 
     reverse_proxy qbittorrent:8080
 }
+
+jellyfin.{$DOMAIN} {
+    header {
+    	import headers
+    }
+
+    log
+    encode zstd gzip
+
+    reverse_proxy jellyfin:8096
+}
