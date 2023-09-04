@@ -11,17 +11,6 @@
     -Server
 }
 
-portainer.{$DOMAIN} {
-    header {
-    	import headers
-    }
-
-    log
-    encode zstd gzip
-
-    reverse_proxy portainer:9000
-}
-
 qbittorrent.{$DOMAIN} {
     header {
     	import headers
@@ -31,6 +20,39 @@ qbittorrent.{$DOMAIN} {
     encode zstd gzip
 
     reverse_proxy qbittorrent:8080
+}
+
+jackett.{$DOMAIN} {
+    header {
+    	import headers
+    }
+
+    log
+    encode zstd gzip
+
+    reverse_proxy jackett:9117
+}
+
+sonarr.{$DOMAIN} {
+    header {
+    	import headers
+    }
+
+    log
+    encode zstd gzip
+
+    reverse_proxy sonarr:8989
+}
+
+radarr.{$DOMAIN} {
+    header {
+    	import headers
+    }
+
+    log
+    encode zstd gzip
+
+    reverse_proxy radarr:7878
 }
 
 jellyfin.{$DOMAIN} {

@@ -9,7 +9,7 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
     ports:
       - target: 80
         published: 80
@@ -21,22 +21,8 @@ services:
         published: 443
         protocol: udp
 
-  portainer:
-    image: portainer/portainer-ce:alpine
-    restart: always
-    environment:
-      VIRTUAL_HOST: portainer.${DOMAIN:-localhost}
-      VIRTUAL_PORT: 9000
-    ports:
-      - target: 8000
-        published: 8000
-        protocol: tcp
-    volumes:
-      - portainer_data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-
   qbittorrent:
-    image: qbittorrentofficial/qbittorrent-nox:latest
+    image: linuxserver/qbittorrent:latest
     restart: always
     ports:
       - target: 8080
@@ -52,8 +38,43 @@ services:
       - qbittorrent_config:/config
       - ${QBITTORRENT_DOWNLOADS_PATH:-./qbittorrent}:/downloads
 
+  jackett:
+    image: linuxserver/jackett:latest
+    restart: always
+    ports:
+      - target: 9117
+        published: 9117
+        protocol: tcp
+    volumes:
+      - jackett_config:/config
+      - ${JACKETT_DOWNLOADS_PATH:-./jackett}:/downloads
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    restart: always
+    ports:
+      - target: 8989
+        published: 8989
+        protocol: tcp
+    volumes:
+      - sonarr_config:/config
+      - ${SONARR_DOWNLOADS_PATH:-./sonarr}:/downloads
+
+  radarr:
+    image: linuxserver/radarr:latest
+    restart: always
+    ports:
+      - target: 7878
+        published: 7878
+        protocol: tcp
+    volumes:
+      - radarr_config:/config
+      - ${RADARR_DOWNLOADS_PATH:-./radarr}:/downloads
+
 volumes:
   caddy_data:
   caddy_config:
-  portainer_data:
   qbittorrent_config:
+  jackett_config:
+  sonarr_config:
+  radarr_config:
