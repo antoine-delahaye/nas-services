@@ -5,7 +5,7 @@
         style-src 'self';
         image-src data: 'self'
     "
-    X-Frame-Options DENY
+    X-Frame-Options SAMEORIGIN
     X-Content-Type-Options nosniff
     X-XSS-Protection "1; mode=block"
     -Server
