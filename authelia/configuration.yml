@@ -1,0 +1,40 @@
+---
+###############################################################
+#                   Authelia configuration                    #
+###############################################################
+
+server:
+  address: 'tcp://:9091'
+
+log:
+  level: debug
+
+authentication_backend:
+  file:
+    path: /config/users_database.yml
+
+access_control:
+  default_policy: one_factor
+  rules:
+    - domain: 'jellyfin.*'
+      policy: bypass
+
+  cookies:
+    - name: authelia_session
+      expiration: 3600
+      inactivity: 300
+
+regulation:
+  max_retries: 3
+  find_time: 120
+  ban_time: 300
+
+storage:
+  local:
+    path: /config/db.sqlite3
+
+notifier:
+  smtp:
+    host: smtp-relay.brevo.com
+    port: 587
+...

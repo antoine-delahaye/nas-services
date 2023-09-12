@@ -11,9 +11,29 @@
     -Server
 }
 
+(auth) {
+    uri /api/verify?rd=https://authelia.{$DOMAIN}/
+    copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+}
+
+authelia.{$DOMAIN} {
+    header {
+    	import headers
+    }
+
+    log
+    encode zstd gzip
+
+    reverse_proxy authelia:9091
+}
+
 qbittorrent.{$DOMAIN} {
     header {
     	import headers
+    }
+
+    forward_auth {
+        import auth
     }
 
     log
@@ -27,6 +47,10 @@ jackett.{$DOMAIN} {
     	import headers
     }
 
+    forward_auth {
+        import auth
+    }
+
     log
     encode zstd gzip
 
@@ -38,6 +62,10 @@ sonarr.{$DOMAIN} {
     	import headers
     }
 
+    forward_auth {
+        import auth
+    }
+
     log
     encode zstd gzip
 
@@ -47,6 +75,10 @@ sonarr.{$DOMAIN} {
 radarr.{$DOMAIN} {
     header {
     	import headers
+    }
+
+    forward_auth {
+        import auth
     }
 
     log
