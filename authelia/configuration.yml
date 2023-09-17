@@ -4,7 +4,8 @@
 ###############################################################
 
 server:
-  address: 'tcp://:9091'
+  host: 0.0.0.0
+  port: 9091
 
 log:
   level: debug
@@ -15,14 +16,11 @@ authentication_backend:
 
 access_control:
   default_policy: one_factor
-  rules:
-    - domain: 'jellyfin.*'
-      policy: bypass
 
-  cookies:
-    - name: authelia_session
-      expiration: 3600
-      inactivity: 300
+session:
+  name: authelia_session
+  expiration: 3600
+  inactivity: 300
 
 regulation:
   max_retries: 3

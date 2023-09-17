@@ -25,31 +25,20 @@ services:
     image: authelia/authelia:latest
     restart: always
     environment:
-      - AUTHELIA_JWT_SECRET_FILE=${AUTHELIA_JWT_SECRET:-B8N4Gwe8By65qDkY77SPdQLpneiMX3i35E5u5t43}
-      - AUTHELIA_DEFAULT_REDIRECTION_URL=${DOMAIN:-localhost}
+      - AUTHELIA_JWT_SECRET=${AUTHELIA_JWT_SECRET:-B8N4Gwe8By65qDkY77SPdQLpneiMX3i35E5u5t43}
+      - AUTHELIA_DEFAULT_REDIRECTION_URL=https://${DOMAIN:-localhost}
       - AUTHELIA_TOTP_ISSUER=${DOMAIN:-localhost}
-      - AUTHELIA_SESSION_SECRET_FILE=${AUTHELIA_SESSION_SECRET:-e38iptM58G453X45LB5DQe6qNyu3kiBndSY7P7wE}
+      - AUTHELIA_SESSION_SECRET=${AUTHELIA_SESSION_SECRET:-e38iptM58G453X45LB5DQe6qNyu3kiBndSY7P7wE}
       - AUTHELIA_SESSION_DOMAIN=${DOMAIN:-localhost}
-      - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=${AUTHELIA_STORAGE_ENCRYPTION_KEY:-Dt643755wdiQBeL8yPEp74ui35XN8M3YnGekSBq5}
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY=${AUTHELIA_STORAGE_ENCRYPTION_KEY:-Dt643755wdiQBeL8yPEp74ui35XN8M3YnGekSBq5}
       - AUTHELIA_NOTIFIER_SMTP_USERNAME=${AUTHELIA_NOTIFIER_SMTP_USERNAME}
-      - AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE=${AUTHELIA_NOTIFIER_SMTP_PASSWORD}
+      - AUTHELIA_NOTIFIER_SMTP_PASSWORD=${AUTHELIA_NOTIFIER_SMTP_PASSWORD}
       - AUTHELIA_NOTIFIER_SMTP_SENDER=authelia@${DOMAIN:-localhost}
     expose:
       - 9091
     volumes:
       - authelia_config:/config
-      - ./authelia/configuration.yml:/config/configuration.yml:ro
-      - ./authelia/users_database.yml:/config/users_database.yml:ro
-
-  fail2ban:
-    image: linuxserver/fail2ban:latest
-    restart: always
-    network_mode: host
-    environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1000}
-    volumes:
-      - fail2ban_config:/config
+      - ./authelia:/config
 
   qbittorrent:
     image: linuxserver/qbittorrent:latest
@@ -117,7 +106,6 @@ volumes:
   caddy_data:
   caddy_config:
   authelia_config:
-  fail2ban_config:
   qbittorrent_config:
   jackett_config:
   sonarr_config:
