@@ -58,7 +58,7 @@ services:
         protocol: udp
     volumes:
       - qbittorrent_config:/config
-      - ${QBITTORRENT_DOWNLOADS_PATH:-./qbittorrent}:/downloads
+      - ${DOWNLOADS_PATH:-./downloads}:/downloads
 
   jackett:
     image: linuxserver/jackett:latest
@@ -72,7 +72,7 @@ services:
         protocol: tcp
     volumes:
       - jackett_config:/config
-      - ${JACKETT_DOWNLOADS_PATH:-./jackett}:/downloads
+      - ${DOWNLOADS_PATH:-./downloads}:/downloads
 
   sonarr:
     image: linuxserver/sonarr:latest
@@ -86,7 +86,7 @@ services:
         protocol: tcp
     volumes:
       - sonarr_config:/config
-      - ${SONARR_DOWNLOADS_PATH:-./sonarr}:/downloads
+      - ${DOWNLOADS_PATH:-./downloads}:/downloads
 
   radarr:
     image: linuxserver/radarr:latest
@@ -100,7 +100,7 @@ services:
         protocol: tcp
     volumes:
       - radarr_config:/config
-      - ${RADARR_DOWNLOADS_PATH:-./radarr}:/downloads
+      - ${DOWNLOADS_PATH:-./downloads}:/downloads
 
 volumes:
   caddy_data:

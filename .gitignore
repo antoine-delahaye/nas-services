@@ -1,4 +1,5 @@
 .idea/
+downloads/
 
 authelia/users_database.yml
 authelia/db.sqlite3
