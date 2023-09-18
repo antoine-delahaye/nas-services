@@ -27,6 +27,21 @@ authelia.{$DOMAIN} {
     reverse_proxy authelia:9091
 }
 
+qbittorrent.{$DOMAIN} {
+    header {
+    	import headers
+    }
+
+    forward_auth authelia:9091 {
+        import auth
+    }
+
+    log
+    encode zstd gzip
+
+    reverse_proxy qbittorrent:8080
+}
+
 jackett.{$DOMAIN} {
     header {
     	import headers
