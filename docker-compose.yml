@@ -40,6 +40,14 @@ services:
       - authelia_config:/config
       - ./authelia:/config
 
+  flaresolverr:
+    image: flaresolverr/flaresolverr:latest
+    restart: always
+    ports:
+      - target: 8191
+        published: 8191
+        protocol: tcp
+
   qbittorrent:
     image: linuxserver/qbittorrent:latest
     restart: always
