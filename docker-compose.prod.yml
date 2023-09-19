@@ -15,7 +15,7 @@ services:
       - /dev/mpp_service:/dev/mpp_service
     volumes:
       - jellyfin_config:/config
-      - ${JELLYFIN_MEDIA_PATH}:/media
+      - ${STORAGE_PATH}:/media
 
 volumes:
   jellyfin_config:
