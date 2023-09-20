@@ -8,7 +8,10 @@ server:
   port: 9091
 
 log:
-  level: debug
+  level: error
+  format: json
+  file_path: "/config/logs/authelia.%d.log"
+  keep_stdout: true
 
 authentication_backend:
   file:

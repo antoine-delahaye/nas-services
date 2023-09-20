@@ -1,5 +1,7 @@
 .idea/
 downloads/
+jellyfin/
 
 authelia/users_database.yml
 authelia/db.sqlite3
+authelia/logs/*.log
