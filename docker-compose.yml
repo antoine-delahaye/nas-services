@@ -9,7 +9,7 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${PWD}/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
     ports:
       - target: 80
         published: 80
@@ -38,7 +38,7 @@ services:
       - 9091
     volumes:
       - authelia_config:/config
-      - ./authelia:/config
+      - ${PWD}/authelia:/config
 
   flaresolverr:
     image: flaresolverr/flaresolverr:latest
@@ -66,7 +66,7 @@ services:
         protocol: udp
     volumes:
       - qbittorrent_config:/config
-      - ${STORAGE_PATH:-./downloads}:/downloads
+      - ${STORAGE_PATH:-${PWD}/downloads}:/downloads
 
   jackett:
     image: linuxserver/jackett:latest
@@ -80,7 +80,7 @@ services:
         protocol: tcp
     volumes:
       - jackett_config:/config
-      - ${STORAGE_PATH:-./downloads}:/downloads
+      - ${STORAGE_PATH:-${PWD}/downloads}:/downloads
 
   sonarr:
     image: linuxserver/sonarr:latest
@@ -94,7 +94,7 @@ services:
         protocol: tcp
     volumes:
       - sonarr_config:/config
-      - ${STORAGE_PATH:-./downloads}:/downloads
+      - ${STORAGE_PATH:-${PWD}/downloads}:/downloads
 
   radarr:
     image: linuxserver/radarr:latest
@@ -108,7 +108,7 @@ services:
         protocol: tcp
     volumes:
       - radarr_config:/config
-      - ${STORAGE_PATH:-./downloads}:/downloads
+      - ${STORAGE_PATH:-${PWD}/downloads}:/downloads
 
 volumes:
   caddy_data:
